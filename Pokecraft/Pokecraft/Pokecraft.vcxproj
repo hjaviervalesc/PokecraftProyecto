@@ -133,6 +133,7 @@
     <ClCompile Include="Entidad.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Objeto.cpp" />
+    <ClCompile Include="Partida.cpp" />
     <ClCompile Include="Pokemon.cpp" />
     <ClCompile Include="PokemonAgua.cpp" />
     <ClCompile Include="PokemonElectrico.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Botiquin.h" />
     <ClInclude Include="Entidad.h" />
     <ClInclude Include="Objeto.h" />
+    <ClInclude Include="Partida.h" />
     <ClInclude Include="Pokemon.h" />
     <ClInclude Include="PokemonAgua.h" />
     <ClInclude Include="PokemonElectrico.h" />
