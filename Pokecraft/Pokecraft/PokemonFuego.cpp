@@ -1,7 +1,7 @@
 #include "PokemonFuego.h"
 #include "Objeto.h"
 
-PokemonFuego::PokemonFuego(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokemon tipo, int armadura, bool vivo,std::string nombre, int vidaMax, int danno): Pokemon(x, y, vida, objetos, tipo, armadura, vivo,nombre, vidaMax, danno)
+PokemonFuego::PokemonFuego(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokemon tipo, int armadura, bool vivo,std::string nombre, int vidaMax, int danno, int velocidad): Pokemon(x, y, vida, objetos, tipo, armadura, vivo,nombre, vidaMax, danno, velocidad)
 {
 }
 

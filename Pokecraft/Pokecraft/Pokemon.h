@@ -12,8 +12,9 @@ protected:
 	int armadura;
 	int danno;
 	int vidaMax;
+	int velocidad;
 public:
-	Pokemon(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokemon tipo, int armadura, bool vivo, std::string nombre, int vidaMax, int danno);
+	Pokemon(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokemon tipo, int armadura, bool vivo, std::string nombre, int vidaMax, int danno, int velocidad);
 	virtual ~Pokemon();
 	inline int getVida()
 	{
@@ -30,6 +31,10 @@ public:
 	inline int getDanno()
 	{
 		return danno;
+	}
+	inline int getVelocidad()
+	{
+		return velocidad;
 	}
 	inline TiposPokemon getTipo()
 	{

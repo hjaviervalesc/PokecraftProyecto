@@ -2,7 +2,8 @@
 #include "Pokemon.h"
 class PokemonAgua : public Pokemon
 {
-	PokemonAgua(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokemon tipo, int armadura, std::string nombre, bool vivo, int vidaMax, int danno);
+public:
+	PokemonAgua(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokemon tipo, int armadura, bool vivo, std::string nombre, int vidaMax, int danno, int velocidad);
 	~PokemonAgua();
 	virtual int calcularDanno(TiposPokemon tipoPokemon);
 };

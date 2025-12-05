@@ -3,7 +3,8 @@
 class PokemonFuego : public Pokemon
 {
 public:
-	PokemonFuego(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokemon tipo, int armadura, bool vivo, std::string nombre, int vidaMax, int danno);
+
+	PokemonFuego(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokemon tipo, int armadura, bool vivo, std::string nombre, int vidaMax, int danno, int velocidad);
 	~PokemonFuego();
 	virtual int calcularDanno(TiposPokemon tipoPokemon);
 };
