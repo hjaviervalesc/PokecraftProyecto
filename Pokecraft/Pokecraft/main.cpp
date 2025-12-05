@@ -15,15 +15,13 @@ using namespace std;
 int main()
 {
 	//Para MEMORY LEAKS
-	 _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Detectar memory leaks 
-	 // 
-	//Creo la partida
+	 _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); 
+	 
 	Partida partida;
 
-	//Creo un numero de pokemons aleatorios
+
 	vector<Pokemon*> Pokemons = partida.crearPokemons(100);
 
-	// Mostrar contadores iniciales
 	cout << "=== POKEMONS CREADOS ===" << endl;
 	cout << "Total de Pokemons: " << Pokemon::getContadorPokemon() << endl;
 	cout << "Pokemons de Agua: " << PokemonAgua::getContadorAgua() << endl;
@@ -32,7 +30,6 @@ int main()
 	cout << "Pokemons de Planta: " << PokemonPlanta::getContadorPlanta() << endl;
 	cout << endl;
 
-	//Gestión de Batallas
 	int indexBatalla = 1;
 
 	while (Pokemons.size() >1) {
