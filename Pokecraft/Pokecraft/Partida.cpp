@@ -35,7 +35,7 @@ std::vector<std::string> nombresElectrico = {
 
 vector<Pokemon*> Partida::crearPokemons(int cantidad) {
 
-    srand(time(nullptr));
+    srand(static_cast<unsigned int>(time(nullptr)));
     vector<Pokemon*> pokemons;
     pokemons.reserve(cantidad);
 
@@ -73,8 +73,8 @@ vector<Pokemon*> Partida::batalla(vector<Pokemon*> &lista) {
 
         }
 
-        int indexToDelete = -1;
-        int ganador = -1;
+        size_t indexToDelete = SIZE_MAX;
+        size_t ganador = SIZE_MAX;
 
         if (lista[i]->getVida() <= 0) {
             indexToDelete = i;
@@ -137,5 +137,7 @@ Pokemon* Partida::crearPokemonAleatorio() {
 
         return p;
         break;
+    default:  return nullptr;
     }
+    
 }

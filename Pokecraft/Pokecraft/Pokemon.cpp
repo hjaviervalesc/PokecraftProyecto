@@ -1,6 +1,7 @@
 #include "Pokemon.h"
 #include "Objeto.h"
 
+int Pokemon::contadorPokemon = 0;
 
 Pokemon::Pokemon(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokemon tipo, int armadura, bool vivo, std::string nombre, int vidaMax, int danno, int velocidad): Entidad(x, y, vivo, nombre)
 {
@@ -11,11 +12,29 @@ Pokemon::Pokemon(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokem
 	this->danno = danno;
 	this->vidaMax = vidaMax;
 	this->velocidad = velocidad;
+	contadorPokemon++;
 }
 
 Pokemon::~Pokemon()
 {
+	contadorPokemon--;
+	if (objetos != nullptr)
+	{
+		for (Objeto* o : *objetos)
+		{
+			delete o;
+		}
+
+		delete objetos;
+		objetos = nullptr;
+	}
 }
+
+int Pokemon::getContadorPokemon()
+{
+	return contadorPokemon;
+}
+
 
 void Pokemon::annadirObjeto(Objeto* objeto)
 {
@@ -44,7 +63,8 @@ void Pokemon::annadirArmadura(int armadura)
 
 void Pokemon::moverse(int x, int y)
 {
-
+	this->x += x;
+	this->y += y;
 }
 
 void Pokemon::atacar(Pokemon* atacado)

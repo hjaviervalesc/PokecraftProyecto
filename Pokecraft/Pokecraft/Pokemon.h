@@ -13,6 +13,7 @@ protected:
 	int danno;
 	int vidaMax;
 	int velocidad;
+	static int contadorPokemon;
 public:
 	Pokemon(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokemon tipo, int armadura, bool vivo, std::string nombre, int vidaMax, int danno, int velocidad);
 	virtual ~Pokemon();
@@ -48,6 +49,8 @@ public:
 	void moverse(int x, int y);
 	void atacar(Pokemon* atacado);
 	virtual int calcularDanno(TiposPokemon tipoPokemon) = 0;
+
+	static int getContadorPokemon();
 
 };
 

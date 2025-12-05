@@ -2,12 +2,16 @@
 #include "PokemonAgua.h"
 #include "Objeto.h"
 
+int PokemonPlanta::contadorPlanta = 0;
+
 PokemonPlanta::PokemonPlanta(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokemon tipo, int armadura, bool vivo, std::string nombre, int vidaMax, int danno, int velocidad) : Pokemon(x, y, vida, objetos, tipo, armadura, vivo,nombre, vidaMax, danno, velocidad)
 {
+	contadorPlanta++;
 }
 
 PokemonPlanta::~PokemonPlanta()
 {
+	contadorPlanta--;
 }
 
 int PokemonPlanta::calcularDanno(TiposPokemon tipoPokemon)
@@ -30,4 +34,9 @@ int PokemonPlanta::calcularDanno(TiposPokemon tipoPokemon)
 	}
 
 	return danno;
+}
+
+int PokemonPlanta::getContadorPlanta()
+{
+	return contadorPlanta;
 }
