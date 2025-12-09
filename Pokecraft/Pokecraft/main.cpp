@@ -18,9 +18,18 @@ int main()
 	 _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); 
 	 
 	Partida partida;
+	int numJugadores;
 
+	cout << "Introduce el numero de jugadores (MAX 100): " << endl;
+	cin >> numJugadores ;
 
-	vector<Pokemon*> Pokemons = partida.crearPokemons(100);
+	if (numJugadores > 100)
+	{
+		cout << "Excedido numero de jugadores maximo" << endl;
+		return 0;
+	}
+
+	vector<Pokemon*> Pokemons = partida.crearPokemons(numJugadores);
 
 	cout << "=== POKEMONS CREADOS ===" << endl;
 	cout << "Total de Pokemons: " << Pokemon::getContadorPokemon() << endl;

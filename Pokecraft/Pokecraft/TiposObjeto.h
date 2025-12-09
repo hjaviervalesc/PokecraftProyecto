@@ -1,5 +1,5 @@
 #pragma once
 enum TiposObjeto
 {
-	Botiquin, Armas, Armadura
+	BotiquinObjeto, Armas, Armadura
 };

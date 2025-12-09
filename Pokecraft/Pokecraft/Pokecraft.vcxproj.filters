@@ -13,84 +13,156 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de encabezado\Pokemon">
+      <UniqueIdentifier>{51355cf1-87f4-452d-a305-6d17feade8d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objeto">
+      <UniqueIdentifier>{b46ad0a1-35bd-4be5-8f7b-153ec7c8d53c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objeto\Arma">
+      <UniqueIdentifier>{a4b6d2ac-acd5-4add-b8c5-6bbbf8a706fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objeto\Armadura">
+      <UniqueIdentifier>{bd9576d3-3006-42e9-ad7e-ef69145e414a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objeto\Botiquin">
+      <UniqueIdentifier>{f0f65909-7ddc-46f3-8c0c-626a53f95fca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Pokemon">
+      <UniqueIdentifier>{183ddbdc-cd20-4739-90dd-18063931aa0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Objeto">
+      <UniqueIdentifier>{caa60967-6f76-4c88-be66-298891b62934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Objeto\Arma">
+      <UniqueIdentifier>{7ca09cbb-569b-494c-bb48-e655c35c029a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Objeto\Armadura">
+      <UniqueIdentifier>{8b4c1d97-0376-4db8-988c-a93dcff5768d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Objeto\Botiquin">
+      <UniqueIdentifier>{8a4b9dce-760e-40fe-8c12-339b10cd54c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Arma.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Armadura.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Botiquin.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="Entidad.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Objeto.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Pokemon.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="PokemonAgua.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="PokemonElectrico.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="PokemonFuego.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="PokemonPlanta.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Partida.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="Arma.cpp">
+      <Filter>Archivos de origen\Objeto\Arma</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmaDiamante.cpp">
+      <Filter>Archivos de origen\Objeto\Arma</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmaduraHierro.cpp">
+      <Filter>Archivos de origen\Objeto\Armadura</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmaduraCuero.cpp">
+      <Filter>Archivos de origen\Objeto\Armadura</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmaduraDiamante.cpp">
+      <Filter>Archivos de origen\Objeto\Armadura</Filter>
+    </ClCompile>
+    <ClCompile Include="Armadura.cpp">
+      <Filter>Archivos de origen\Objeto\Armadura</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmaHierro.cpp">
+      <Filter>Archivos de origen\Objeto\Arma</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmaMadera.cpp">
+      <Filter>Archivos de origen\Objeto\Arma</Filter>
+    </ClCompile>
+    <ClCompile Include="Botiquin.cpp">
+      <Filter>Archivos de origen\Objeto\Botiquin</Filter>
+    </ClCompile>
+    <ClCompile Include="Objeto.cpp">
+      <Filter>Archivos de origen\Objeto</Filter>
+    </ClCompile>
+    <ClCompile Include="Pokemon.cpp">
+      <Filter>Archivos de origen\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="PokemonAgua.cpp">
+      <Filter>Archivos de origen\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="PokemonElectrico.cpp">
+      <Filter>Archivos de origen\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="PokemonFuego.cpp">
+      <Filter>Archivos de origen\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="PokemonPlanta.cpp">
+      <Filter>Archivos de origen\Pokemon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Arma.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Armadura.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Botiquin.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Entidad.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Objeto.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Pokemon.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="PokemonAgua.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="PokemonElectrico.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="PokemonFuego.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="PokemonPlanta.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="TiposObjeto.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="TiposPokemon.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Partida.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Pokemon.h">
+      <Filter>Archivos de encabezado\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="PokemonAgua.h">
+      <Filter>Archivos de encabezado\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="PokemonElectrico.h">
+      <Filter>Archivos de encabezado\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="PokemonFuego.h">
+      <Filter>Archivos de encabezado\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="PokemonPlanta.h">
+      <Filter>Archivos de encabezado\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="TiposPokemon.h">
+      <Filter>Archivos de encabezado\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="Objeto.h">
+      <Filter>Archivos de encabezado\Objeto</Filter>
+    </ClInclude>
+    <ClInclude Include="TiposObjeto.h">
+      <Filter>Archivos de encabezado\Objeto</Filter>
+    </ClInclude>
+    <ClInclude Include="Arma.h">
+      <Filter>Archivos de encabezado\Objeto\Arma</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmaDiamante.h">
+      <Filter>Archivos de encabezado\Objeto\Arma</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmaHierro.h">
+      <Filter>Archivos de encabezado\Objeto\Arma</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmaMadera.h">
+      <Filter>Archivos de encabezado\Objeto\Arma</Filter>
+    </ClInclude>
+    <ClInclude Include="TiposArma.h">
+      <Filter>Archivos de encabezado\Objeto\Arma</Filter>
+    </ClInclude>
+    <ClInclude Include="Armadura.h">
+      <Filter>Archivos de encabezado\Objeto\Armadura</Filter>
+    </ClInclude>
+    <ClInclude Include="Botiquin.h">
+      <Filter>Archivos de encabezado\Objeto\Botiquin</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmaduraHierro.h">
+      <Filter>Archivos de encabezado\Objeto\Armadura</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmaduraCuero.h">
+      <Filter>Archivos de encabezado\Objeto\Armadura</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmaduraDiamante.h">
+      <Filter>Archivos de encabezado\Objeto\Armadura</Filter>
+    </ClInclude>
+    <ClInclude Include="TiposArmadura.h">
+      <Filter>Archivos de encabezado\Objeto\Armadura</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

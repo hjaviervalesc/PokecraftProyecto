@@ -128,7 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Arma.cpp" />
+    <ClCompile Include="ArmaDiamante.cpp" />
     <ClCompile Include="Armadura.cpp" />
+    <ClCompile Include="ArmaduraCuero.cpp" />
+    <ClCompile Include="ArmaduraDiamante.cpp" />
+    <ClCompile Include="ArmaduraHierro.cpp" />
+    <ClCompile Include="ArmaHierro.cpp" />
+    <ClCompile Include="ArmaMadera.cpp" />
     <ClCompile Include="Botiquin.cpp" />
     <ClCompile Include="Entidad.cpp" />
     <ClCompile Include="main.cpp" />
@@ -142,7 +148,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arma.h" />
+    <ClInclude Include="ArmaDiamante.h" />
     <ClInclude Include="Armadura.h" />
+    <ClInclude Include="ArmaduraCuero.h" />
+    <ClInclude Include="ArmaduraDiamante.h" />
+    <ClInclude Include="ArmaduraHierro.h" />
+    <ClInclude Include="ArmaHierro.h" />
+    <ClInclude Include="ArmaMadera.h" />
     <ClInclude Include="Botiquin.h" />
     <ClInclude Include="Entidad.h" />
     <ClInclude Include="Objeto.h" />
@@ -152,6 +164,8 @@
     <ClInclude Include="PokemonElectrico.h" />
     <ClInclude Include="PokemonFuego.h" />
     <ClInclude Include="PokemonPlanta.h" />
+    <ClInclude Include="TiposArma.h" />
+    <ClInclude Include="TiposArmadura.h" />
     <ClInclude Include="TiposObjeto.h" />
     <ClInclude Include="TiposPokemon.h" />
   </ItemGroup>
