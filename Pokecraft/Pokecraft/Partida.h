@@ -19,7 +19,7 @@ public:
 	std::vector<Pokemon*> batalla(std::vector<Pokemon*> &lista);
 	Pokemon* crearPokemonAleatorio();
 	std::list<Objeto*>* equipInicio();
-	std::vector<std::unique_ptr<Objeto>> objetosMapa();
+	std::vector<Objeto*> objetosMapa();
 
 private:
 

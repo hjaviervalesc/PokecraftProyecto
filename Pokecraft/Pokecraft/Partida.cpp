@@ -2,6 +2,8 @@
 #include "Pokemon.h"
 #include "Objeto.h"
 
+#include "TiposObjeto.h"
+
 #include "PokemonFuego.h"
 #include "PokemonAgua.h"
 #include "PokemonPlanta.h"
@@ -128,7 +130,8 @@ vector<Pokemon*> Partida::batalla(vector<Pokemon*> &lista) {
 
 Pokemon* Partida::crearPokemonAleatorio( ) {
 
-    int vida = rand() % 300;
+    //Les daría a todos la misma vida
+    int vida = 350;
 
     int tipo = rand() % 4; 
 
@@ -193,30 +196,31 @@ std::list<Objeto*>* Partida::equipInicio()
 
 
 //CHATGPTeada para sustituir un switch, ns como quereis hacerlo
-std::vector<std::unique_ptr<Objeto>> Partida::objetosMapa()
+std::vector<Objeto*> Partida::objetosMapa()
 {
-    std::vector<std::unique_ptr<Objeto>> objetos;
+    std::vector<Objeto*> objetos;
 
-    std::vector<std::function<std::unique_ptr<Objeto>()>> fabricas = {
-    []() { return std::make_unique<ArmaduraCuero>(Casco, false, 1, true, rand() % 200, rand() % 200, Armadura, "CascoCuero"); }, 
-    []() { return std::make_unique<ArmaduraHierro>(Casco, false, 1, true, rand() % 200, rand() % 200, Armadura, "CascoHierro"); },
-    []() { return std::make_unique<ArmaduraDiamante>(Casco, false, 1, true, rand() % 200, rand() % 200, Armadura, "CascoDiamante"); },
-    []() { return std::make_unique<ArmaduraCuero>(Mallas, false, 1, true, rand() % 200, rand() % 200, Armadura, " MallasCuero"); },
-    []() { return std::make_unique<ArmaduraHierro>(Mallas, false, 1, true, rand() % 200, rand() % 200, Armadura, "MallasHierro"); },
-    []() { return std::make_unique<ArmaduraDiamante>(Mallas, false, 1, true, rand() % 200, rand() % 200, Armadura, "MallasDiamante"); },
-    []() { return std::make_unique<ArmaduraCuero>(Pechera, false, 1, true, rand() % 200, rand() % 200, Armadura, "PecheraCuero"); },
-    []() { return std::make_unique<ArmaduraHierro>(Pechera, false, 1, true, rand() % 200, rand() % 200, Armadura, "PecheraHierro"); },
-    []() { return std::make_unique<ArmaduraDiamante>(Pechera, false, 1, true, rand() % 200, rand() % 200, Armadura, "PecheraDiamante"); },
-    []() { return std::make_unique<ArmaMadera>(Martillo, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloMadera");  },
-    []() { return std::make_unique<ArmaHierro>(Martillo, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloHierro");  },
-    []() { return std::make_unique<ArmaDiamante>(Martillo, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloDiamante");  },
-    []() { return std::make_unique<ArmaMadera>(Hacha, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloMadera");  },
-    []() { return std::make_unique<ArmaHierro>(Hacha, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloHierro");  },
-    []() { return std::make_unique<ArmaDiamante>(Hacha, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloDiamante");  },
-    []() { return std::make_unique<ArmaMadera>(Espada, false, 1, true, rand() % 200, rand() % 200, Armas, "EspadaMadera");  },
-    []() { return std::make_unique<ArmaHierro>(Espada, false, 1, true, rand() % 200, rand() % 200, Armas, "EspadaHierro");  },
-    []() { return std::make_unique<ArmaDiamante>(Espada, false, 1, true, rand() % 200, rand() % 200, Armas, "EspadaDiamante");  },
-    []() { return std::make_unique<Botiquin>(BotiquinObjeto, false, 1, true, rand() % 200, rand() % 200, BotiquinObjeto, "Botiquin"); },
+    std::vector<std::function<Objeto* ()>> fabricas = {
+        []() { return new ArmaduraCuero(Casco, false, 1, true, rand() % 200, rand() % 200, Armadura, "CascoCuero"); },
+        []() { return new ArmaduraHierro(Casco, false, 1, true, rand() % 200, rand() % 200, Armadura, "CascoHierro"); },
+        []() { return new ArmaduraDiamante(Casco, false, 1, true, rand() % 200, rand() % 200, Armadura, "CascoDiamante"); },
+        []() { return new ArmaduraCuero(Mallas, false, 1, true, rand() % 200, rand() % 200, Armadura, "MallasCuero"); },
+        []() { return new ArmaduraHierro(Mallas, false, 1, true, rand() % 200, rand() % 200, Armadura, "MallasHierro"); },
+        []() { return new ArmaduraDiamante(Mallas, false, 1, true, rand() % 200, rand() % 200, Armadura, "MallasDiamante"); },
+        []() { return new ArmaduraCuero(Pechera, false, 1, true, rand() % 200, rand() % 200, Armadura, "PecheraCuero"); },
+        []() { return new ArmaduraHierro(Pechera, false, 1, true, rand() % 200, rand() % 200, Armadura, "PecheraHierro"); },
+        []() { return new ArmaduraDiamante(Pechera, false, 1, true, rand() % 200, rand() % 200, Armadura, "PecheraDiamante"); },
+        []() { return new ArmaMadera(Martillo, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloMadera"); },
+        []() { return new ArmaHierro(Martillo, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloHierro"); },
+        []() { return new ArmaDiamante(Martillo, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloDiamante"); },
+        []() { return new ArmaMadera(Hacha, false, 1, true, rand() % 200, rand() % 200, Armas, "HachaMadera"); },
+        []() { return new ArmaHierro(Hacha, false, 1, true, rand() % 200, rand() % 200, Armas, "HachaHierro"); },
+        []() { return new ArmaDiamante(Hacha, false, 1, true, rand() % 200, rand() % 200, Armas, "HachaDiamante"); },
+        []() { return new ArmaMadera(Espada, false, 1, true, rand() % 200, rand() % 200, Armas, "EspadaMadera"); },
+        []() { return new ArmaHierro(Espada, false, 1, true, rand() % 200, rand() % 200, Armas, "EspadaHierro"); },
+        []() { return new ArmaDiamante(Espada, false, 1, true, rand() % 200, rand() % 200, Armas, "EspadaDiamante"); },
+        //Botiquin va a regenerar siempre 150
+        []() { return new Botiquin(150, false, 1, true, rand() % 200, rand() % 200, BotiquinObjeto, "Botiquin"); },
     };
 
     int r = rand() % fabricas.size();
@@ -225,7 +229,59 @@ std::vector<std::unique_ptr<Objeto>> Partida::objetosMapa()
     return objetos;
 }
 
-//void recoleccionObjetos(std::vector<std::unique_ptr<Objeto>> objetos, std::list<Objeto*>* objetosJugador)
-//{
-//    for(int i = 0; objetos[i] ; )
-//}
+//Recibirá el vector con todos los objetos y el Pokemon al que le toque el turno.
+void recolectarObjetos(std::vector<Objeto*>& objetos, Pokemon* pokemon)
+{
+    int i = 0;
+    //Recorrer el vector con todos los objetos 
+    while (i < objetos.size())
+    {
+        //Si coincide localización añade y borra
+        if (objetos[i]->getX() == pokemon->getX() && objetos[i]->getY() == pokemon->getY())
+        {
+            //La lsta de objetos de pokemon no tiene limite, se pueden almacenar los que sean
+            pokemon->annadirObjeto(objetos[i]);
+            objetos.erase(objetos.begin() + i);
+        }
+        else
+        {
+            i++; 
+        }
+    }
+}
+
+void usarObjetos(Pokemon* pokemonDuelo)
+{
+    std::list<Objeto*>* objetosPokemon = pokemonDuelo->getObjetos();
+
+    if ((*objetosPokemon).empty())
+    {
+        return;
+    }
+    //Objeto de los primeros 5 de la lista si tiene 5 sino entre el maximo posible
+    int max = std::min((int)objetosPokemon->size(), 5);
+    int i = rand() % max;  
+    auto it = (*objetosPokemon).begin();
+    std::advance(it, i);
+
+    if ((*it)->getTipoObjeto() == Armas)
+    {
+        //utilizar aqui es para hacer daño no para sumarle el daño al pokemos que use el arma!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        (*it)->utilizar(pokemonDuelo);
+    }
+    else if ((*it)->getTipoObjeto() == Armadura)
+    {
+        //Arreglar en armadura.cpp numUsos porque como solo va a tener 1 siempre deberiamos de hacerlo estatico y en armas deberiamos de definir estaticamente en numUsos en el constructor!!!!!!!!!!!!!!!!!!!
+        (*it)->utilizar(pokemonDuelo);
+    }
+    else if ((*it)->getTipoObjeto() == BotiquinObjeto)
+    {
+        (*it)->utilizar(pokemonDuelo);
+    }
+    
+}
+
+//SmartPointers????????????????
+//Arreglar en armadura.cpp numUsos porque como solo va a tener 1 siempre deberiamos de hacerlo estatico y en armas deberiamos de definir estaticamente en numUsos en el constructor!!!!!!!!!!!!!!!!!!!
+//utilizar aqui es para hacer daño no para sumarle el daño al pokemos que use el arma!!!!!!!!!!!!!!!!!!!!!!!!!!!!111
+////CHATGPTeada para sustituir un switch, ns como quereis hacerlo

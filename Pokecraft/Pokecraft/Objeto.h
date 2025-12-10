@@ -14,5 +14,9 @@ public:
 	virtual ~Objeto();
 	virtual void utilizar(Pokemon* pokemon) = 0;
 
+	int getX();
+	int getY();
+	TiposObjeto getTipoObjeto();
+
 };
 
