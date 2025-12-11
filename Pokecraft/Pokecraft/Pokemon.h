@@ -14,6 +14,7 @@ protected:
 	int vidaMax;
 	int velocidad;
 	static int contadorPokemon;
+	bool controlado;
 public:
 	Pokemon(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokemon tipo, int armadura, bool vivo, std::string nombre, int vidaMax, int danno, int velocidad);
 	virtual ~Pokemon();
@@ -41,6 +42,9 @@ public:
 	{
 		return tipo;
 	}
+	inline bool getControlado() {
+		return controlado;
+	}
 
 	void annadirObjeto(Objeto* objeto);
 	void annadirVida(int vida);
@@ -49,6 +53,8 @@ public:
 	void moverse(int x, int y);
 	void atacar(Pokemon* atacado);
 	virtual int calcularDanno(TiposPokemon tipoPokemon) = 0;
+	void setControlado(bool estado);
+	//void usarObjetoAleatorio();
 
 	static int getContadorPokemon();
 

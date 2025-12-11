@@ -55,7 +55,7 @@ std::vector<std::string> nombresElectrico = {
 
 vector<Pokemon*> Partida::crearPokemons(int cantidad) {
 
-    srand(static_cast<unsigned int>(time(nullptr)));
+    //srand(static_cast<unsigned int>(time(nullptr)));
     vector<Pokemon*> pokemons;
     pokemons.reserve(cantidad);
 
@@ -66,22 +66,23 @@ vector<Pokemon*> Partida::crearPokemons(int cantidad) {
     return pokemons;
 }
 
-vector<Pokemon*> Partida::batalla(vector<Pokemon*> &lista) {
-    //¿Usamos mejor int?
-    for (size_t i = 0; i < lista.size()-1; i = i+2)
-    {
+std::vector<Pokemon*> Partida::batalla(std::vector<Pokemon*>& lista, Pokemon* actual, Pokemon* rival)
+{  
+    usarObjetos(actual);
+    usarObjetos(rival);
+
         Pokemon* pokemonVeloz;
         Pokemon* pokemonLento;
 
-        if (lista[i]->getVelocidad() > lista[i+1]->getVelocidad()) 
+        if (actual->getVelocidad() > rival->getVelocidad())
         {
-            pokemonVeloz = lista[i];
-            pokemonLento = lista[i+1];
+            pokemonVeloz = actual;
+            pokemonLento = rival;
         }
         else 
         {
-            pokemonVeloz = lista[i+1];
-            pokemonLento = lista[i];
+            pokemonVeloz = rival;
+            pokemonLento = actual;
         }
 
         while (pokemonVeloz->getVida() > 0 && pokemonLento->getVida() > 0) 
@@ -97,31 +98,46 @@ vector<Pokemon*> Partida::batalla(vector<Pokemon*> &lista) {
         size_t indexToDelete = SIZE_MAX;
         size_t ganador = SIZE_MAX;
 
-        if (lista[i]->getVida() <= 0) 
+        if (actual->getVida() <= 0)
         {
-            indexToDelete = i;
-            ganador = i+1;
+            for (int i = 0; i < lista.size(); i++) {
+                if (lista[i] == actual) {
+                    indexToDelete = i;
+                }
+                if (lista[i] == rival) {
+                    ganador = i;
+                }
+            }      
         }
 
-        if (lista[i+1]->getVida() <= 0)
+        if (rival->getVida() <= 0)
         {
-            indexToDelete = i+1;
-            ganador = i;
+            for (int i = 0; i < lista.size(); i++) {
+                if (lista[i] == rival) {
+                    indexToDelete = i;
+                }
+                if (lista[i] == actual) {
+                    ganador = i;
+                }
+            }
         }
 
-        cout << "ENTRE " << pokemonVeloz->getNombre() << " y " << pokemonLento->getNombre() << " ----> GANA " << lista[ganador]->getNombre() << endl;
+        cout << endl << "------- BATALLA ENTRE " << pokemonVeloz->getNombre() << " y " << pokemonLento->getNombre() << " ----> GANA " << lista[ganador]->getNombre() << " -------" << endl << endl;
+
+            if (indexToDelete != -1)
+            lista[indexToDelete]->setVivo(false);
         
-        if (indexToDelete != -1) 
+        /*if (indexToDelete != -1) 
         {
             delete lista[indexToDelete];
             lista[indexToDelete] = nullptr;
         }
-    }
+    
 
     lista.erase(
         std::remove(lista.begin(), lista.end(), nullptr),
         lista.end()
-    );
+    );*/
 
     return lista;
 
@@ -138,29 +154,46 @@ Pokemon* Partida::crearPokemonAleatorio( ) {
     int damage = rand() % 30;
     int velocidad = rand() % 10;
     Pokemon* p;
+
     switch (tipo) {
     case 0:
         p = new PokemonFuego(0, 0, vida, equipInicio(), TiposPokemon::Fuego, 0, true, nombresFuego[rand() % nombresFuego.size()], vida, damage, velocidad);
-        // ChatGPTeada para ver q funciona
-        //std::cout << "Equipo de inicio de: ";
-        //for (auto* obj : *(p->getObjetos())) {
-        //    std::cout << obj->getNombre() << " ";
-        //}
-        //std::cout << std::endl;
+        break;
 
-        return p;
     case 1:
         p = new PokemonAgua(0, 0, vida, equipInicio(), TiposPokemon::Agua, 0, true, nombresAgua[rand() % nombresAgua.size()], vida, damage, velocidad);
-        return p;
+        break;
+
     case 2:
         p = new PokemonPlanta(0, 0, vida, equipInicio(), TiposPokemon::Planta, 0, true, nombresPlanta[rand() % nombresPlanta.size()], vida, damage, velocidad);
-        return p;
+        break;
+
     case 3:
         p = new PokemonElectrico(0, 0, vida, equipInicio(), TiposPokemon::Electrico, 0, true, nombresElectrico[rand() % nombresElectrico.size()], vida, damage, velocidad);
-        return p;
+        break;
+
     default:  
-        return nullptr;
+        p = nullptr;
+        break;
     }
+
+    int x = 0;
+        int y= 0;
+
+    do {
+
+        x = rand() % mapa->MatrizCasillas.size();
+        y = rand() % mapa->MatrizCasillas.size();
+
+   } while (mapa->MatrizCasillas[x][y]->pokemon != nullptr);
+   
+    mapa->MatrizCasillas[x][y]->pokemon = p;
+
+    p->setX(x);
+    p->setY(y);
+
+    return p;
+
 }
 
 //Tres tipos de clases bases a elegir. Se eligen random para automatizarlo
@@ -250,7 +283,7 @@ void recolectarObjetos(std::vector<Objeto*>& objetos, Pokemon* pokemon)
     }
 }
 
-void usarObjetos(Pokemon* pokemonDuelo)
+void Partida::usarObjetos(Pokemon* pokemonDuelo)
 {
     std::list<Objeto*>* objetosPokemon = pokemonDuelo->getObjetos();
 
@@ -278,7 +311,49 @@ void usarObjetos(Pokemon* pokemonDuelo)
     {
         (*it)->utilizar(pokemonDuelo);
     }
+
+    cout << pokemonDuelo->getNombre() << " UTILIZA " << (*it)->getNombre() << endl;
     
+}
+
+void Partida::reducirZonaAzul(int x, int y) {
+
+    int tamaño = mapa->MatrizCasillas.size(); // tamaño del cuadrado, ejemplo 3x3
+    int mitad = tamaño / 2; // distancia desde el centro al borde
+
+    for (int i = -mitad; i <= mitad; ++i) {
+        for (int j = -mitad; j <= mitad; ++j) {
+            // saltamos el centro si no lo quieres
+            if (i == 0 && j == 0) continue;
+
+            // solo bordes del cuadrado
+            if (i == -mitad || i == mitad || j == -mitad || j == mitad) {
+                int nx = x + i;
+                int ny = y + j;
+
+                // revisar que no se salga de los límites
+                if (nx >= 0 && nx < mapa->MatrizCasillas.size() && ny >= 0 && ny < mapa->MatrizCasillas.size()) {
+                    Casilla* c = mapa->MatrizCasillas[nx][ny];
+
+                    if (c->pokemon) {
+                        c->pokemon->setVivo(false);
+                        cout << "La zona azul mata a " << c->pokemon->getNombre() << endl;
+                        c->pokemon = nullptr;
+                    }
+
+                    // aquí haces lo que quieras con la casilla
+                }
+            }
+        }
+    }
+}
+
+Objeto* Partida::ComprobarObjetoEnCasilla(int x, int y) {
+    return mapa->MatrizCasillas[x][y]->objeto;
+}
+
+Pokemon* Partida::ComprobarPokemonEnCasilla(int x, int y) {
+    return mapa->MatrizCasillas[x][y]->pokemon;
 }
 
 //SmartPointers????????????????

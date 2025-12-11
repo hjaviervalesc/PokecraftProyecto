@@ -136,8 +136,10 @@
     <ClCompile Include="ArmaHierro.cpp" />
     <ClCompile Include="ArmaMadera.cpp" />
     <ClCompile Include="Botiquin.cpp" />
+    <ClCompile Include="Casilla.cpp" />
     <ClCompile Include="Entidad.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mapa.cpp" />
     <ClCompile Include="Objeto.cpp" />
     <ClCompile Include="Partida.cpp" />
     <ClCompile Include="Pokemon.cpp" />
@@ -156,7 +158,9 @@
     <ClInclude Include="ArmaHierro.h" />
     <ClInclude Include="ArmaMadera.h" />
     <ClInclude Include="Botiquin.h" />
+    <ClInclude Include="Casilla.h" />
     <ClInclude Include="Entidad.h" />
+    <ClInclude Include="Mapa.h" />
     <ClInclude Include="Objeto.h" />
     <ClInclude Include="Partida.h" />
     <ClInclude Include="Pokemon.h" />

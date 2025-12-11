@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Pokemon.h"
+#include "Mapa.h"
 #include <iostream>
 #include <vector>
 
@@ -15,11 +16,19 @@ class Partida
 
 public:
 
+	Mapa* mapa;
+
 	std::vector<Pokemon*> crearPokemons(int cantidad);
-	std::vector<Pokemon*> batalla(std::vector<Pokemon*> &lista);
+	std::vector<Pokemon*> batalla(std::vector<Pokemon*>& lista, Pokemon* actual, Pokemon* rival);
 	Pokemon* crearPokemonAleatorio();
 	std::list<Objeto*>* equipInicio();
 	std::vector<Objeto*> objetosMapa();
+
+	Objeto* ComprobarObjetoEnCasilla(int x, int y);
+	Pokemon* ComprobarPokemonEnCasilla(int x, int y);
+
+	void reducirZonaAzul(int x, int y);
+	void usarObjetos(Pokemon* pokemonDuelo);
 
 private:
 

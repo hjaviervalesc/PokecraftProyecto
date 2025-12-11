@@ -72,3 +72,20 @@ void Pokemon::atacar(Pokemon* atacado)
 	int danno = calcularDanno(atacado->getTipo());
 	atacado->restarVida(danno);
 }
+
+void Pokemon::setControlado(bool estado) {
+	controlado = estado;
+}
+
+//void::Pokemon::usarObjetoAleatorio() {
+//	if (objetos->size() == 0) return;
+//
+//	int index = rand() % objetos->size();
+//
+//	auto it = objetos->begin();
+//	std::advance(it, index);
+//
+//	Objeto* aleatorio = *it;
+//
+//	aleatorio->utilizar(this);
+//}
