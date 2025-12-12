@@ -15,6 +15,17 @@ using namespace std;
 
 int main()
 {
+
+	cout << "\x1b[33m";
+	cout << "***************************************" << endl;
+	cout << "                                     " << endl;
+	cout << "      \x1b[31mBIENVENIDO A\x1b[33m       " << endl;
+	cout << "      \x1b[34mPOKEMON RUMBLE ROYALE\x1b[33m  " << endl;
+	cout << "                                     " << endl;
+	cout << "***************************************\n" << endl;
+	cout  << "CREACION DE PARTIDA" << endl << endl;
+	cout << "\x1b[0m";
+
 	//Para MEMORY LEAKS
 	 _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); 
 	 
@@ -69,8 +80,10 @@ int main()
 
 	while (Pokemons.size() >1) {
 
+		cout << "\x1b[33m";
 		cout << "RONDA " << indexBatalla << endl;
 		cout << endl;
+		cout << "\x1b[0m";
 
 		for (int i = 0; i < Pokemons.size(); i++)
 		{
@@ -89,9 +102,9 @@ int main()
 
 				do {
 					cout << "JUGADOR, ELIGE EL MOVIMIENTO DE " << pokemonActual->getNombre() << endl;
-					cout << " ESCRIBE -1 PARA IZQUIERDA, 0 PARA NO MOVERTE EN X O 1 PARA DERECHA" << endl;
+					cout << "Movimiento horizontal: -1 es ←, 0 es quieto, 1 es →" << endl;
 					cin >> xDirection;
-					cout << " ESCRIBE -1 PARA ARRIBA, 0 PARA NO MOVERTE EN Y O 1 PARA ABAJO" << endl;
+					cout << "Movimiento vertical: -1 es ↑, 0 es quieto, 1 es ↓" << endl;
 					cin >> yDirection;
 				} while ((xDirection < -1 || xDirection > 1) && (yDirection < -1 || yDirection > 1));
 
@@ -126,7 +139,11 @@ int main()
 			}
 
 			if (loot) {
+				cout << endl;
+				cout << "      \x1b[32m";
 				cout << pokemonActual->getNombre() << " ENCUENTRA " << loot->getNombre() << endl;
+				cout << endl;
+				cout << "\x1b[0m";
 				pokemonActual->annadirObjeto(loot);
 				mapa->MatrizCasillas[pokemonActual->getX()][pokemonActual->getY()]->objeto = nullptr;
 			}
@@ -174,6 +191,7 @@ int main()
 	cout << " ------------------------------- RECOGE TU PREMIO -------------------------------" << endl;
 	cout << endl;
 
+	cout << "\x1b[34m";
 	cout << R"(
   .     '     ,
     _________
@@ -182,6 +200,7 @@ int main()
      '.\ /.'
        '.'
 )" << endl;
+	cout << "\x1b[0m";
 
 	for (Pokemon* p : Pokemons) {
 		delete p;

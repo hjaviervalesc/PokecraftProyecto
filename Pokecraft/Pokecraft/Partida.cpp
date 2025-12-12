@@ -125,8 +125,9 @@ std::vector<Pokemon*> Partida::batalla(std::vector<Pokemon*>& lista, Pokemon* ac
                 }
             }
         }
-
+        cout << "      \x1b[31m";
         cout << endl << "------- BATALLA ENTRE " << pokemonVeloz->getNombre() << " y " << pokemonLento->getNombre() << " ----> GANA " << lista[ganador]->getNombre() << " -------" << endl << endl;
+        cout << "\x1b[0m";
 
             if (indexToDelete != -1)
             lista[indexToDelete]->setVivo(false);
