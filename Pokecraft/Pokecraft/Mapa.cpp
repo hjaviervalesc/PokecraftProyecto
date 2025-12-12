@@ -33,18 +33,18 @@
 
 using namespace std;
 
-Mapa::Mapa(int tamaño, int nObjetos)
+Mapa::Mapa(int tamanno, int nObjetos)
 {
-    CrearMapa(tamaño);
+    CrearMapa(tamanno);
     GenerarObjetos(nObjetos);
 }
 
-	void Mapa::CrearMapa(int tamaño) {
+	void Mapa::CrearMapa(int tamanno) {
 
-		MatrizCasillas.resize(tamaño, std::vector<Casilla*>(tamaño, nullptr));
+		MatrizCasillas.resize(tamanno, std::vector<Casilla*>(tamanno, nullptr));
 
-		for (int i = 0; i < tamaño; i++) {
-			for (int j = 0; j < tamaño; j++) {
+		for (int i = 0; i < tamanno; i++) {
+			for (int j = 0; j < tamanno; j++) {
 				MatrizCasillas[i][j] = new Casilla;
 			}
 		}
@@ -93,3 +93,19 @@ Mapa::Mapa(int tamaño, int nObjetos)
         }
 
 	}
+
+Mapa::~Mapa()
+{
+    // Borrar todas las casillas y los objetos que aÃºn queden en ellas.
+    for (size_t i = 0; i < MatrizCasillas.size(); ++i) {
+        for (size_t j = 0; j < MatrizCasillas[i].size(); ++j) {
+            Casilla* c = MatrizCasillas[i][j];
+            if (c != nullptr) {
+                // El destructor de Casilla liberarÃ¡ el objeto si existe.
+                delete c;
+                MatrizCasillas[i][j] = nullptr;
+            }
+        }
+    }
+    MatrizCasillas.clear();
+}

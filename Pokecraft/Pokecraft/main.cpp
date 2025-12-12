@@ -21,13 +21,13 @@ int main()
 	Partida partida; 
 
 	int numJugadores;
-	int tamañoMapa;
+	int tamannoMapa;
 	int numeroNPCs;
 
-	cout << "Introduce el tamaño del mapa: (MAX 10)" << endl;
-	cin >> tamañoMapa;
+	cout << "Introduce el tamanno del mapa: (MAX 10)" << endl;
+	cin >> tamannoMapa;
 
-	Mapa* mapa = new Mapa(tamañoMapa, 5);
+	Mapa* mapa = new Mapa(tamannoMapa, 5);
 	partida.mapa = mapa;
 
 	cout << "Introduce el numero de jugadores reales: " << endl;
@@ -39,6 +39,10 @@ int main()
 	if (numeroNPCs > 100)
 	{
 		cout << "Excedido numero de jugadores maximo" << endl;
+
+		delete mapa;
+		partida.mapa = nullptr;
+		liberarRecursos();
 		return 0;
 	}
 
@@ -55,7 +59,7 @@ int main()
 	cout << endl;
 
 	int indexBatalla = 1;
-	int tamañoZonaAzul = -4;
+	int tamannoZonaAzul = -4;
 
 	for (int i = 0; i < numJugadores; i++) {
 		Pokemons[i]->setControlado(true);
@@ -101,9 +105,9 @@ int main()
 			pokemonActual->moverse(xDirection, yDirection);
 
 			if (pokemonActual->getX() < 0) { pokemonActual->setX(0); }
-			if (pokemonActual->getX() > mapa->MatrizCasillas.size()-1) { pokemonActual->setX(mapa->MatrizCasillas.size() - 1); }
+			if (pokemonActual->getX() > mapa->MatrizCasillas.size()-1) { pokemonActual->setX((int)mapa->MatrizCasillas.size() - 1); }
 			if (pokemonActual->getY() < 0) { pokemonActual->setY(0); }
-			if (pokemonActual->getY() > mapa->MatrizCasillas.size() - 1) { pokemonActual->setY(mapa->MatrizCasillas.size() - 1); }
+			if (pokemonActual->getY() > mapa->MatrizCasillas.size() - 1) { pokemonActual->setY((int)mapa->MatrizCasillas.size() - 1); }
 
 			cout << pokemonActual->getNombre() << " ESTA EN X:" << pokemonActual->getX() << " Y :" << pokemonActual->getY() << endl;
 
@@ -129,10 +133,10 @@ int main()
 
 		}
 
-		tamañoZonaAzul++;
+		tamannoZonaAzul++;
 
-		if(tamañoZonaAzul >0)
-		partida.reducirZonaAzul(tamañoZonaAzul, tamañoZonaAzul);
+		if(tamannoZonaAzul >0)
+		partida.reducirZonaAzul(tamannoZonaAzul, tamannoZonaAzul);
 
 
 		Pokemons.erase(
@@ -173,5 +177,12 @@ int main()
 	}
 
 	Pokemons.clear();
+
+	// Liberar mapa y recursos asociados
+	delete mapa;
+	partida.mapa = nullptr;
+
+    // Liberar vectores estÃ¡ticos y otros recursos globales utilizados por Partida
+    liberarRecursos();
 
 }

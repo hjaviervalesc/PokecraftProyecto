@@ -17,7 +17,7 @@ class Partida
 public:
 
 	Mapa* mapa;
-
+	Partida();
 	std::vector<Pokemon*> crearPokemons(int cantidad);
 	std::vector<Pokemon*> batalla(std::vector<Pokemon*>& lista, Pokemon* actual, Pokemon* rival);
 	Pokemon* crearPokemonAleatorio();
@@ -34,4 +34,7 @@ private:
 
 	int jugadores = 100;
 };
+
+// Libera recursos globales estáticos usados por Partida (listas de nombres)
+void liberarRecursos();
 

@@ -7,11 +7,12 @@ class Mapa
 {
 public:
 
-	Mapa(int tamaño, int nObjetos);
+	Mapa(int tamanno, int nObjetos);
+	~Mapa();
 
 	std::vector<std::vector<Casilla*>> MatrizCasillas;
 	
-	void CrearMapa(int tamaño);
+	void CrearMapa(int tamanno);
 	void GenerarObjetos(int nObjetos);
 };
 

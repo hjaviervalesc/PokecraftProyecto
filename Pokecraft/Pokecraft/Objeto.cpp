@@ -9,6 +9,7 @@ Objeto::Objeto(bool cogido, int numUsos, bool vivo, int x, int y, TiposObjeto ti
 
 Objeto::~Objeto()
 {
+
 }
 
 int Objeto::getX()

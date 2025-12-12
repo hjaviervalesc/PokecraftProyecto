@@ -53,6 +53,11 @@ std::vector<std::string> nombresElectrico = {
 
 
 
+Partida::Partida(): mapa(nullptr)
+{
+
+}
+
 vector<Pokemon*> Partida::crearPokemons(int cantidad) {
 
     //srand(static_cast<unsigned int>(time(nullptr)));
@@ -146,7 +151,7 @@ std::vector<Pokemon*> Partida::batalla(std::vector<Pokemon*>& lista, Pokemon* ac
 
 Pokemon* Partida::crearPokemonAleatorio( ) {
 
-    //Les daría a todos la misma vida
+    //Les darï¿½a a todos la misma vida
     int vida = 350;
 
     int tipo = rand() % 4; 
@@ -223,6 +228,7 @@ std::list<Objeto*>* Partida::equipInicio()
         return objetosIniciales;
 
     default:
+        return nullptr;
         break;
     }
 }
@@ -257,19 +263,19 @@ std::vector<Objeto*> Partida::objetosMapa()
     };
 
     int r = rand() % fabricas.size();
-    objetos.push_back(fabricas[r]());  // añade un objeto aleatorio
+    objetos.push_back(fabricas[r]());  // aï¿½ade un objeto aleatorio
 
     return objetos;
 }
 
-//Recibirá el vector con todos los objetos y el Pokemon al que le toque el turno.
+//Recibirï¿½ el vector con todos los objetos y el Pokemon al que le toque el turno.
 void recolectarObjetos(std::vector<Objeto*>& objetos, Pokemon* pokemon)
 {
     int i = 0;
     //Recorrer el vector con todos los objetos 
     while (i < objetos.size())
     {
-        //Si coincide localización añade y borra
+        //Si coincide localizaciï¿½n aï¿½ade y borra
         if (objetos[i]->getX() == pokemon->getX() && objetos[i]->getY() == pokemon->getY())
         {
             //La lsta de objetos de pokemon no tiene limite, se pueden almacenar los que sean
@@ -299,7 +305,7 @@ void Partida::usarObjetos(Pokemon* pokemonDuelo)
 
     if ((*it)->getTipoObjeto() == Armas)
     {
-        //utilizar aqui es para hacer daño no para sumarle el daño al pokemos que use el arma!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //utilizar aqui es para hacer daï¿½o no para sumarle el daï¿½o al pokemos que use el arma!!!!!!!!!!!!!!!!!!!!!!!!!!!
         (*it)->utilizar(pokemonDuelo);
     }
     else if ((*it)->getTipoObjeto() == Armadura)
@@ -318,8 +324,8 @@ void Partida::usarObjetos(Pokemon* pokemonDuelo)
 
 void Partida::reducirZonaAzul(int x, int y) {
 
-    int tamaño = mapa->MatrizCasillas.size(); // tamaño del cuadrado, ejemplo 3x3
-    int mitad = tamaño / 2; // distancia desde el centro al borde
+    size_t tamanno = mapa->MatrizCasillas.size(); // tamaï¿½o del cuadrado, ejemplo 3x3
+    int mitad = (int)tamanno / 2; // distancia desde el centro al borde
 
     for (int i = -mitad; i <= mitad; ++i) {
         for (int j = -mitad; j <= mitad; ++j) {
@@ -331,7 +337,7 @@ void Partida::reducirZonaAzul(int x, int y) {
                 int nx = x + i;
                 int ny = y + j;
 
-                // revisar que no se salga de los límites
+                // revisar que no se salga de los lï¿½mites
                 if (nx >= 0 && nx < mapa->MatrizCasillas.size() && ny >= 0 && ny < mapa->MatrizCasillas.size()) {
                     Casilla* c = mapa->MatrizCasillas[nx][ny];
 
@@ -341,7 +347,7 @@ void Partida::reducirZonaAzul(int x, int y) {
                         c->pokemon = nullptr;
                     }
 
-                    // aquí haces lo que quieras con la casilla
+                    // aquï¿½ haces lo que quieras con la casilla
                 }
             }
         }
@@ -356,7 +362,22 @@ Pokemon* Partida::ComprobarPokemonEnCasilla(int x, int y) {
     return mapa->MatrizCasillas[x][y]->pokemon;
 }
 
+void liberarRecursos()
+{
+    nombresFuego.clear();
+   
+
+    nombresAgua.clear();
+   
+
+    nombresPlanta.clear();
+
+
+    nombresElectrico.clear();
+
+}
+
 //SmartPointers????????????????
 //Arreglar en armadura.cpp numUsos porque como solo va a tener 1 siempre deberiamos de hacerlo estatico y en armas deberiamos de definir estaticamente en numUsos en el constructor!!!!!!!!!!!!!!!!!!!
-//utilizar aqui es para hacer daño no para sumarle el daño al pokemos que use el arma!!!!!!!!!!!!!!!!!!!!!!!!!!!!111
+//utilizar aqui es para hacer daï¿½o no para sumarle el daï¿½o al pokemos que use el arma!!!!!!!!!!!!!!!!!!!!!!!!!!!!111
 ////CHATGPTeada para sustituir un switch, ns como quereis hacerlo
