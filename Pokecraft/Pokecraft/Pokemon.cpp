@@ -13,6 +13,7 @@ Pokemon::Pokemon(int x, int y, int vida, std::list<Objeto*>* objetos, TiposPokem
 	this->vidaMax = vidaMax;
 	this->velocidad = velocidad;
 	contadorPokemon++;
+	this->controlado = false;
 }
 
 Pokemon::~Pokemon()
@@ -76,16 +77,3 @@ void Pokemon::atacar(Pokemon* atacado)
 void Pokemon::setControlado(bool estado) {
 	controlado = estado;
 }
-
-//void::Pokemon::usarObjetoAleatorio() {
-//	if (objetos->size() == 0) return;
-//
-//	int index = rand() % objetos->size();
-//
-//	auto it = objetos->begin();
-//	std::advance(it, index);
-//
-//	Objeto* aleatorio = *it;
-//
-//	aleatorio->utilizar(this);
-//}

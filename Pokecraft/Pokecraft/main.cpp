@@ -171,6 +171,17 @@ int main()
 	cout << endl;
 	cout << " ------------------------------- EL GANADOR ES " << Pokemons[0]->getNombre() << " -------------------------------" << endl;
 	cout << endl;
+	cout << " ------------------------------- RECOGE TU PREMIO -------------------------------" << endl;
+	cout << endl;
+
+	cout << R"(
+  .     '     ,
+    _________
+ _ /_|_____|_\ _
+   '. \   / .'
+     '.\ /.'
+       '.'
+)" << endl;
 
 	for (Pokemon* p : Pokemons) {
 		delete p;

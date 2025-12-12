@@ -54,7 +54,6 @@ public:
 	void atacar(Pokemon* atacado);
 	virtual int calcularDanno(TiposPokemon tipoPokemon) = 0;
 	void setControlado(bool estado);
-	//void usarObjetoAleatorio();
 
 	static int getContadorPokemon();
 

@@ -22,7 +22,6 @@ public:
 	std::vector<Pokemon*> batalla(std::vector<Pokemon*>& lista, Pokemon* actual, Pokemon* rival);
 	Pokemon* crearPokemonAleatorio();
 	std::list<Objeto*>* equipInicio();
-	std::vector<Objeto*> objetosMapa();
 
 	Objeto* ComprobarObjetoEnCasilla(int x, int y);
 	Pokemon* ComprobarPokemonEnCasilla(int x, int y);
@@ -35,6 +34,5 @@ private:
 	int jugadores = 100;
 };
 
-// Libera recursos globales estáticos usados por Partida (listas de nombres)
 void liberarRecursos();
 

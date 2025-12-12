@@ -60,7 +60,6 @@ Partida::Partida(): mapa(nullptr)
 
 vector<Pokemon*> Partida::crearPokemons(int cantidad) {
 
-    //srand(static_cast<unsigned int>(time(nullptr)));
     vector<Pokemon*> pokemons;
     pokemons.reserve(cantidad);
 
@@ -131,18 +130,6 @@ std::vector<Pokemon*> Partida::batalla(std::vector<Pokemon*>& lista, Pokemon* ac
 
             if (indexToDelete != -1)
             lista[indexToDelete]->setVivo(false);
-        
-        /*if (indexToDelete != -1) 
-        {
-            delete lista[indexToDelete];
-            lista[indexToDelete] = nullptr;
-        }
-    
-
-    lista.erase(
-        std::remove(lista.begin(), lista.end(), nullptr),
-        lista.end()
-    );*/
 
     return lista;
 
@@ -151,7 +138,6 @@ std::vector<Pokemon*> Partida::batalla(std::vector<Pokemon*>& lista, Pokemon* ac
 
 Pokemon* Partida::crearPokemonAleatorio( ) {
 
-    //Les dar�a a todos la misma vida
     int vida = 350;
 
     int tipo = rand() % 4; 
@@ -201,7 +187,6 @@ Pokemon* Partida::crearPokemonAleatorio( ) {
 
 }
 
-//Tres tipos de clases bases a elegir. Se eligen random para automatizarlo
 std::list<Objeto*>* Partida::equipInicio()
 {
     std::list<Objeto*>* objetosIniciales = new std::list<Objeto*>();
@@ -209,7 +194,6 @@ std::list<Objeto*>* Partida::equipInicio()
     Objeto* o;
     switch (tipo)
     {
-        // x e y = -1 porque pertenecen al personaje
     case 0:
         o = new ArmaMadera(TiposArma::Martillo, true, 1, true, -1, -1, Armas, "MartilloMadera");
         objetosIniciales->push_back(o);
@@ -233,52 +217,16 @@ std::list<Objeto*>* Partida::equipInicio()
     }
 }
 
-
-//CHATGPTeada para sustituir un switch, ns como quereis hacerlo
-std::vector<Objeto*> Partida::objetosMapa()
-{
-    std::vector<Objeto*> objetos;
-
-    std::vector<std::function<Objeto* ()>> fabricas = {
-        []() { return new ArmaduraCuero(Casco, false, 1, true, rand() % 200, rand() % 200, Armadura, "CascoCuero"); },
-        []() { return new ArmaduraHierro(Casco, false, 1, true, rand() % 200, rand() % 200, Armadura, "CascoHierro"); },
-        []() { return new ArmaduraDiamante(Casco, false, 1, true, rand() % 200, rand() % 200, Armadura, "CascoDiamante"); },
-        []() { return new ArmaduraCuero(Mallas, false, 1, true, rand() % 200, rand() % 200, Armadura, "MallasCuero"); },
-        []() { return new ArmaduraHierro(Mallas, false, 1, true, rand() % 200, rand() % 200, Armadura, "MallasHierro"); },
-        []() { return new ArmaduraDiamante(Mallas, false, 1, true, rand() % 200, rand() % 200, Armadura, "MallasDiamante"); },
-        []() { return new ArmaduraCuero(Pechera, false, 1, true, rand() % 200, rand() % 200, Armadura, "PecheraCuero"); },
-        []() { return new ArmaduraHierro(Pechera, false, 1, true, rand() % 200, rand() % 200, Armadura, "PecheraHierro"); },
-        []() { return new ArmaduraDiamante(Pechera, false, 1, true, rand() % 200, rand() % 200, Armadura, "PecheraDiamante"); },
-        []() { return new ArmaMadera(Martillo, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloMadera"); },
-        []() { return new ArmaHierro(Martillo, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloHierro"); },
-        []() { return new ArmaDiamante(Martillo, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloDiamante"); },
-        []() { return new ArmaMadera(Hacha, false, 1, true, rand() % 200, rand() % 200, Armas, "HachaMadera"); },
-        []() { return new ArmaHierro(Hacha, false, 1, true, rand() % 200, rand() % 200, Armas, "HachaHierro"); },
-        []() { return new ArmaDiamante(Hacha, false, 1, true, rand() % 200, rand() % 200, Armas, "HachaDiamante"); },
-        []() { return new ArmaMadera(Espada, false, 1, true, rand() % 200, rand() % 200, Armas, "EspadaMadera"); },
-        []() { return new ArmaHierro(Espada, false, 1, true, rand() % 200, rand() % 200, Armas, "EspadaHierro"); },
-        []() { return new ArmaDiamante(Espada, false, 1, true, rand() % 200, rand() % 200, Armas, "EspadaDiamante"); },
-        //Botiquin va a regenerar siempre 150
-        []() { return new Botiquin(150, false, 1, true, rand() % 200, rand() % 200, BotiquinObjeto, "Botiquin"); },
-    };
-
-    int r = rand() % fabricas.size();
-    objetos.push_back(fabricas[r]());  // a�ade un objeto aleatorio
-
-    return objetos;
-}
-
-//Recibir� el vector con todos los objetos y el Pokemon al que le toque el turno.
 void recolectarObjetos(std::vector<Objeto*>& objetos, Pokemon* pokemon)
 {
     int i = 0;
-    //Recorrer el vector con todos los objetos 
+
     while (i < objetos.size())
     {
-        //Si coincide localizaci�n a�ade y borra
+
         if (objetos[i]->getX() == pokemon->getX() && objetos[i]->getY() == pokemon->getY())
         {
-            //La lsta de objetos de pokemon no tiene limite, se pueden almacenar los que sean
+
             pokemon->annadirObjeto(objetos[i]);
             objetos.erase(objetos.begin() + i);
         }
@@ -297,7 +245,7 @@ void Partida::usarObjetos(Pokemon* pokemonDuelo)
     {
         return;
     }
-    //Objeto de los primeros 5 de la lista si tiene 5 sino entre el maximo posible
+
     int max = std::min((int)objetosPokemon->size(), 5);
     int i = rand() % max;  
     auto it = (*objetosPokemon).begin();
@@ -305,12 +253,12 @@ void Partida::usarObjetos(Pokemon* pokemonDuelo)
 
     if ((*it)->getTipoObjeto() == Armas)
     {
-        //utilizar aqui es para hacer da�o no para sumarle el da�o al pokemos que use el arma!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         (*it)->utilizar(pokemonDuelo);
     }
     else if ((*it)->getTipoObjeto() == Armadura)
     {
-        //Arreglar en armadura.cpp numUsos porque como solo va a tener 1 siempre deberiamos de hacerlo estatico y en armas deberiamos de definir estaticamente en numUsos en el constructor!!!!!!!!!!!!!!!!!!!
+
         (*it)->utilizar(pokemonDuelo);
     }
     else if ((*it)->getTipoObjeto() == BotiquinObjeto)
@@ -324,20 +272,22 @@ void Partida::usarObjetos(Pokemon* pokemonDuelo)
 
 void Partida::reducirZonaAzul(int x, int y) {
 
-    size_t tamanno = mapa->MatrizCasillas.size(); // tama�o del cuadrado, ejemplo 3x3
-    int mitad = (int)tamanno / 2; // distancia desde el centro al borde
+    int asesinatos = 0;
+
+    size_t tamanno = mapa->MatrizCasillas.size();
+    int mitad = (int)tamanno / 2;
 
     for (int i = -mitad; i <= mitad; ++i) {
         for (int j = -mitad; j <= mitad; ++j) {
-            // saltamos el centro si no lo quieres
-            if (i == 0 && j == 0) continue;
 
-            // solo bordes del cuadrado
+            if (i == 0 && j == 0) continue;
+            if (Pokemon::getContadorPokemon() - asesinatos == 1) break;
+
             if (i == -mitad || i == mitad || j == -mitad || j == mitad) {
                 int nx = x + i;
                 int ny = y + j;
 
-                // revisar que no se salga de los l�mites
+
                 if (nx >= 0 && nx < mapa->MatrizCasillas.size() && ny >= 0 && ny < mapa->MatrizCasillas.size()) {
                     Casilla* c = mapa->MatrizCasillas[nx][ny];
 
@@ -345,9 +295,8 @@ void Partida::reducirZonaAzul(int x, int y) {
                         c->pokemon->setVivo(false);
                         cout << "La zona azul mata a " << c->pokemon->getNombre() << endl;
                         c->pokemon = nullptr;
+                        asesinatos++;
                     }
-
-                    // aqu� haces lo que quieras con la casilla
                 }
             }
         }
@@ -365,19 +314,7 @@ Pokemon* Partida::ComprobarPokemonEnCasilla(int x, int y) {
 void liberarRecursos()
 {
     nombresFuego.clear();
-   
-
     nombresAgua.clear();
-   
-
     nombresPlanta.clear();
-
-
     nombresElectrico.clear();
-
 }
-
-//SmartPointers????????????????
-//Arreglar en armadura.cpp numUsos porque como solo va a tener 1 siempre deberiamos de hacerlo estatico y en armas deberiamos de definir estaticamente en numUsos en el constructor!!!!!!!!!!!!!!!!!!!
-//utilizar aqui es para hacer da�o no para sumarle el da�o al pokemos que use el arma!!!!!!!!!!!!!!!!!!!!!!!!!!!!111
-////CHATGPTeada para sustituir un switch, ns como quereis hacerlo

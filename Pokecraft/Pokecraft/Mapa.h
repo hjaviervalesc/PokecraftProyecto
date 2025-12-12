@@ -14,5 +14,7 @@ public:
 	
 	void CrearMapa(int tamanno);
 	void GenerarObjetos(int nObjetos);
+
+	std::vector<Objeto*> getPoolObjetos();
 };
 
