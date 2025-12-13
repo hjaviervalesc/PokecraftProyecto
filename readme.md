@@ -195,8 +195,8 @@ Entidad
 - **Mapa**  
   Representación espacial del escenario, mantiene MatrizCasillas  y funciones para crear celdas y generar objetos.  
   Métodos importantes:
-  - Mapa->CrearMapa(int tamaño): reserva la matriz y crea cada Casilla con new.
-  - Mapa->GenerarObjetos(int nObjetos): usa un vector de fábricas para crear instancias aleatorias de Arma, Armadura y Botiquin y colocarlas en casillas libres.
+  - Mapa->crearMapa(int tamaño): reserva la matriz y crea cada Casilla con new.
+  - Mapa->generarObjetos(int nObjetos): usa un vector de fábricas para crear instancias aleatorias de Arma, Armadura y Botiquin y colocarlas en casillas libres.
 
 
 - **Partida**  
@@ -208,7 +208,7 @@ Entidad
   - Partida->batalla(...): gestiona la secuencia de combate entre dos pokemons, invocando Partida->usarObjetos sobre ambos antes de iniciar intercambios de ataques. Determina el pokemon veloz por velocidad y aplica ataques alternos hasta la muerte de uno.
   - Partida->usarObjetos(Pokemon* p): elige un objeto aleatorio entre los primeros 5 del inventario y llama a objeto->utilizar(p). Imprime por consola la acción realizada.
   - Partida->reducirZonaAzul(int cx, int cy): recorre el perímetro de un cuadrado centrado en (cx,cy) y elimina (marca vivo = false) pokemons en las casillas del borde, libera la referencia en la casilla.
-  - Partida->objetosMapa() y Partida->ComprobarObjetoEnCasilla/ComprobarPokemonEnCasilla: utilidades para obtener ítems y entidades en coordenadas específicas.
+  - Partida->objetosMapa() y Partida->comprobarObjetoEnCasilla/comprobarPokemonEnCasilla: utilidades para obtener ítems y entidades en coordenadas específicas.
 
 # Conclusiones
 El proyecto presenta una estructura orientada a la programación orientada a objetos, con separación entre entidades, objetos y control de juego, y   uso del polimorfismo para aplicar las reglas de daño según tipo. Entre sus limitaciones actuales, la gestión de memoria es manual, lo que puede generar fugas o errores, por lo que sería recomendable usar smart pointers, y la simulación no cuenta con interfaz de usuario ni manejo avanzado de entrada, ejecutándose únicamente por consola. A pesar de estas limitaciones, el código sirve como una base sólida y extensible para futuras mejoras y ampliaciones del proyecto.
