@@ -216,6 +216,6 @@ El proyecto presenta una estructura orientada a la programación orientada a obj
 
 # Créditos
 - Proyecto realizado en C++ (Visual Studio).
-- Autores: Javi Hilario, Jose Moreno y Alex.
+- Autores: Hilario Javier, Jose Moreno y Alex.
 
 
