@@ -12,14 +12,7 @@ Objeto::~Objeto()
 
 }
 
-int Objeto::getX()
-{
-	return this->x;
-}
-int Objeto::getY()
-{
-	return this->y;
-}
+
 TiposObjeto Objeto::getTipoObjeto()
 {
 	return this->tipo;

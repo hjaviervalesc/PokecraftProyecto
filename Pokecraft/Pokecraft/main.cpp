@@ -1,222 +1,253 @@
 #include <iostream>
+#include <vector>
+#include <random>
+#include <algorithm> 
+
 
 #include "Partida.h"
 #include "Pokemon.h"
+#include "Mapa.h"
 #include "PokemonAgua.h"
 #include "PokemonElectrico.h"
 #include "PokemonFuego.h"
 #include "PokemonPlanta.h"
+#include "Casilla.h"
 #include "Objeto.h"
 
-#include <vector>
-
-using namespace std;
+// Configuración de Memory Leaks
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
-#define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
+
+#ifdef _DEBUG
+#ifndef DBG_NEW
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+#define new DBG_NEW
+#endif
+#endif
+
+using namespace std;
+
+
+void mostrarBienvenida();
+void mostrarGanador(Pokemon* ganador);
+void mostrarEstadisticas();
+void gestionarMovimiento(Pokemon* p, int& dx, int& dy); // Pide input o genera random
+void corregirLimitesMapa(Pokemon* p, int tamannoMapa);
+void limpiarPokemonsMuertos(vector<Pokemon*>& pokemons);
 
 
 int main()
 {
+    // Configuración inicial
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    srand(static_cast<unsigned int>(time(nullptr)));
 
-	cout << "\x1b[33m";
-	cout << "***************************************" << endl;
-	cout << "                                     " << endl;
-	cout << "      \x1b[31mBIENVENIDO A\x1b[33m       " << endl;
-	cout << "      \x1b[34mPOKEMON RUMBLE ROYALE\x1b[33m  " << endl;
-	cout << "                                     " << endl;
-	cout << "***************************************\n" << endl;
-	cout  << "CREACION DE PARTIDA" << endl << endl;
-	cout << "\x1b[0m";
+    mostrarBienvenida();
 
-	//Para MEMORY LEAKS
-	 _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); 
-	 
-	Partida partida; 
+   
+    Partida* partida = new Partida();
+    int numJugadores, tamannoMapa, numeroNPCs;
 
-	int numJugadores;
-	int tamannoMapa;
-	int numeroNPCs;
+    cout << "Introduce el tamanno del mapa: (MAX 10)" << endl;
+    cin >> tamannoMapa;
 
-	cout << "Introduce el tamanno del mapa: (MAX 10)" << endl;
-	cin >> tamannoMapa;
+   
+    Mapa* mapa = new Mapa(tamannoMapa, 5);
+    partida->setMapa(mapa);
 
-	Mapa* mapa = new Mapa(tamannoMapa, 5);
-	partida.mapa = mapa;
+    cout << "Introduce el numero de jugadores reales: " << endl;
+    cin >> numJugadores;
 
-	cout << "Introduce el numero de jugadores reales: " << endl;
-	cin >> numJugadores ;
+    cout << "Introduce el numero de NPCs: " << endl;
+    cin >> numeroNPCs;
 
-	cout << "Introduce el numero de NPCs: " << endl;
-	cin >> numeroNPCs;
-
-	if (numeroNPCs > 100)
-	{
-		cout << "Excedido numero de jugadores maximo" << endl;
-
-		delete mapa;
-		partida.mapa = nullptr;
-		liberarRecursos();
-		return 0;
-	}
-
-	int pokemonsTotales = numJugadores + numeroNPCs;
-
-	vector<Pokemon*> Pokemons = partida.crearPokemons(pokemonsTotales);
-
-	cout << "=== POKEMONS CREADOS ===" << endl;
-	cout << "Total de Pokemons: " << Pokemon::getContadorPokemon() << endl;
-	cout << "Pokemons de Agua: " << PokemonAgua::getContadorAgua() << endl;
-	cout << "Pokemons Electricos: " << PokemonElectrico::getContadorElectrico() << endl;
-	cout << "Pokemons de Fuego: " << PokemonFuego::getContadorFuego() << endl;
-	cout << "Pokemons de Planta: " << PokemonPlanta::getContadorPlanta() << endl;
-	cout << endl;
-
-	int indexBatalla = 1;
-	int tamannoZonaAzul = -4;
-
-	for (int i = 0; i < numJugadores; i++) {
-		Pokemons[i]->setControlado(true);
-
-		cout << "JUGADOR NUMERO " << (i + 1) << " TU POKEMON ES " << Pokemons[i]->getNombre() << endl;
-	}
-
-	while (Pokemons.size() >1) {
-
-		cout << "\x1b[33m";
-		cout << "RONDA " << indexBatalla << endl;
-		cout << endl;
-		cout << "\x1b[0m";
-
-		for (int i = 0; i < Pokemons.size(); i++)
-		{
-			Pokemon* pokemonActual = Pokemons[i];
-
-			if (!pokemonActual->getVivo()) continue;
+    
+    if (numeroNPCs > 100) {
+        cout << "Error: Excedido numero de jugadores maximo" << endl;
+        delete partida;
+        liberarRecursos();
+        return 0;
+    }
 
 
-			partida.mapa->MatrizCasillas[pokemonActual->getX()][pokemonActual->getY()]->pokemon = nullptr;
+    int pokemonsTotales = numJugadores + numeroNPCs;
+    vector<Pokemon*> Pokemons = partida->crearPokemons(pokemonsTotales);
 
-			int xDirection = 0;
-			int yDirection = 0;
+   
+    cout << "\n=== ASIGNACION DE POKEMONS ===" << endl;
+    mostrarEstadisticas();
 
-			if (pokemonActual->getControlado()) 
-			{
+    for (int i = 0; i < numJugadores; i++) {
+        Pokemons[i]->setControlado(true);
+        cout << "JUGADOR " << (i + 1) << " -> TU POKEMON ES: \x1b[32m" << Pokemons[i]->getNombre() << "\x1b[0m" << endl;
+    }
 
-				do {
-					cout << "JUGADOR, ELIGE EL MOVIMIENTO DE " << pokemonActual->getNombre() << endl;
-					cout << "Movimiento horizontal: -1 es ←, 0 es quieto, 1 es →" << endl;
-					cin >> xDirection;
-					cout << "Movimiento vertical: -1 es ↑, 0 es quieto, 1 es ↓" << endl;
-					cin >> yDirection;
-				} while ((xDirection < -1 || xDirection > 1) && (yDirection < -1 || yDirection > 1));
+    
+    int indexBatalla = 1;
+    int tamannoZonaAzul = -4; 
 
-			}
-			else {
-				xDirection = (rand() % 3) - 1;
-				yDirection = (rand() % 3) - 1;
-			}
+    while (Pokemons.size() > 1) {
+
+        cout << "\x1b[33m\n>>> RONDA " << indexBatalla << " <<<\x1b[0m" << endl;
+
+        
+        for (int i = 0; i < Pokemons.size(); i++)
+        {
+            Pokemon* actual = Pokemons[i];
+            if (!actual->getVivo()) continue;
+
+           
+            partida->getMapa()->MatrizCasillas[actual->getX()][actual->getY()]->setPokemon(nullptr);
+
+           
+            int dx = 0, dy = 0;
+            gestionarMovimiento(actual, dx, dy);
+
+           
+            actual->moverse(dx, dy);
+            corregirLimitesMapa(actual, (int)mapa->MatrizCasillas.size());
+
+            
+            Pokemon* rival = partida->ComprobarPokemonEnCasilla(actual->getX(), actual->getY());
+            Objeto* loot = partida->ComprobarObjetoEnCasilla(actual->getX(), actual->getY());
+
+            if (rival && rival->getNombre() != actual->getNombre()) {
+                
+                partida->batalla(Pokemons, actual, rival);
+
+                
+                if (actual->getVivo())
+                    partida->getMapa()->MatrizCasillas[actual->getX()][actual->getY()]->setPokemon(actual);
+                else if (rival->getVivo())
+                    partida->getMapa()->MatrizCasillas[rival->getX()][rival->getY()]->setPokemon(rival);
+            }
+            else {
+              
+                partida->getMapa()->MatrizCasillas[actual->getX()][actual->getY()]->setPokemon(actual);
+            }
+
+       
+            if (loot) {
+                cout << "\x1b[32m   [!] " << actual->getNombre() << " ENCUENTRA " << loot->getNombre() << "\x1b[0m" << endl;
+                actual->annadirObjeto(loot);
+                mapa->MatrizCasillas[actual->getX()][actual->getY()]->setObjeto(nullptr);
+            }
+        }
+
+      
+        tamannoZonaAzul++;
+        if (tamannoZonaAzul > 0) {
+            partida->reducirZonaAzul(tamannoZonaAzul, tamannoZonaAzul);
+        }
+
+       
+        limpiarPokemonsMuertos(Pokemons);
+
+        if (Pokemons.size() > 1) {
+            cout << "\n--- ESTADO DE LA PARTIDA ---" << endl;
+            cout << "Pokemons vivos: " << Pokemons.size() << endl;
+            mostrarEstadisticas();
+        }
+
+        indexBatalla++;
+    }
+
+   
+    if (!Pokemons.empty()) {
+        mostrarGanador(Pokemons[0]);
+    }
+
+   
+    for (Pokemon* p : Pokemons) {
+        delete p;
+    }
+    Pokemons.clear();
+
+    
+    delete partida;
+    liberarRecursos();
+
+    return 0;
+}
 
 
-			pokemonActual->moverse(xDirection, yDirection);
 
-			if (pokemonActual->getX() < 0) { pokemonActual->setX(0); }
-			if (pokemonActual->getX() > mapa->MatrizCasillas.size()-1) { pokemonActual->setX((int)mapa->MatrizCasillas.size() - 1); }
-			if (pokemonActual->getY() < 0) { pokemonActual->setY(0); }
-			if (pokemonActual->getY() > mapa->MatrizCasillas.size() - 1) { pokemonActual->setY((int)mapa->MatrizCasillas.size() - 1); }
+void mostrarBienvenida() {
+    cout << "\x1b[33m";
+    cout << "***************************************" << endl;
+    cout << "                                     " << endl;
+    cout << "      \x1b[31mBIENVENIDO A\x1b[33m       " << endl;
+    cout << "      \x1b[34mPOKEMON RUMBLE ROYALE\x1b[33m  " << endl;
+    cout << "                                     " << endl;
+    cout << "***************************************\n" << endl;
+    cout << "CREACION DE PARTIDA" << endl << endl;
+    cout << "\x1b[0m";
+}
 
-			cout << pokemonActual->getNombre() << " ESTA EN X:" << pokemonActual->getX() << " Y :" << pokemonActual->getY() << endl;
+void mostrarEstadisticas() {
+    cout << "Total: " << Pokemon::getContadorPokemon()
+        << " | Agua: " << PokemonAgua::getContadorAgua()
+        << " | Elec: " << PokemonElectrico::getContadorElectrico()
+        << " | Fuego: " << PokemonFuego::getContadorFuego()
+        << " | Planta: " << PokemonPlanta::getContadorPlanta() << endl;
+}
 
-			Pokemon* rival = partida.ComprobarPokemonEnCasilla(pokemonActual->getX(), pokemonActual->getY());
-			Objeto* loot = partida.ComprobarObjetoEnCasilla(pokemonActual->getX(), pokemonActual->getY());
+void gestionarMovimiento(Pokemon* p, int& dx, int& dy) {
+    if (p->getControlado()) {
+        do {
+            cout << "JUGADOR, ELIGE EL MOVIMIENTO DE " << p->getNombre() << endl;
+            cout << "Movimiento horizontal: -1 es IZQUIERDA, 0 es quieto, 1 es DERECHA" << endl;
+            cin >> dx;
+            cout << "Movimiento vertical: -1 es ARRIBA, 0 es quieto, 1 es ABAJO" << endl;
+            cin >> dy;
+        } while ((dx < -1 || dx > 1) || (dy < -1 || dy > 1));
+    }
+    else {
+      
+        dx = (rand() % 3) - 1;
+        dy = (rand() % 3) - 1;
+    }
+}
 
-			if (rival && rival->getNombre() != pokemonActual->getNombre()) {
-				partida.batalla(Pokemons, pokemonActual, rival);
+void corregirLimitesMapa(Pokemon* p, int tamannoMapa) {
+    int maxCoord = tamannoMapa - 1;
+    if (p->getX() < 0) p->setX(0);
+    if (p->getX() > maxCoord) p->setX(maxCoord);
+    if (p->getY() < 0) p->setY(0);
+    if (p->getY() > maxCoord) p->setY(maxCoord);
+}
 
-				if (!pokemonActual->getVivo()) partida.mapa->MatrizCasillas[pokemonActual->getX()][pokemonActual->getY()]->pokemon = rival;
-				if (!rival->getVivo()) partida.mapa->MatrizCasillas[rival->getX()][rival->getY()]->pokemon = pokemonActual;
-			}
-			else {
+void limpiarPokemonsMuertos(vector<Pokemon*>& pokemons) {
+    pokemons.erase(
+        std::remove_if(
+            pokemons.begin(),
+            pokemons.end(),
+            [](Pokemon* p) {
+                if (!p->getVivo()) {
+                    delete p;   // Liberamos la memoria aquí
+                    return true; // Lo sacamos del vector
+                }
+                return false;
+            }
+        ),
+        pokemons.end()
+    );
+}
 
-				partida.mapa->MatrizCasillas[pokemonActual->getX()][pokemonActual->getY()]->pokemon = pokemonActual;
-			}
-
-			if (loot) {
-				cout << endl;
-				cout << "      \x1b[32m";
-				cout << pokemonActual->getNombre() << " ENCUENTRA " << loot->getNombre() << endl;
-				cout << endl;
-				cout << "\x1b[0m";
-				pokemonActual->annadirObjeto(loot);
-				mapa->MatrizCasillas[pokemonActual->getX()][pokemonActual->getY()]->objeto = nullptr;
-			}
-
-		}
-
-		tamannoZonaAzul++;
-
-		if(tamannoZonaAzul >0)
-		partida.reducirZonaAzul(tamannoZonaAzul, tamannoZonaAzul);
-
-
-		Pokemons.erase(
-			std::remove_if(
-				Pokemons.begin(),
-				Pokemons.end(),
-				[](Pokemon* p) {
-					if (!p->getVivo()) {
-						delete p;   // liberar memoria
-						p = nullptr;
-						return true; // eliminar del vector
-					}
-					return false;
-				}
-			),
-			Pokemons.end()
-		);
-
-		cout << endl;
-		cout << "QUEDAN " << Pokemons.size() << " POKEMONS " << endl;
-		cout << "Agua: " << PokemonAgua::getContadorAgua() 
-		     << " | Electricos: " << PokemonElectrico::getContadorElectrico()
-		     << " | Fuego: " << PokemonFuego::getContadorFuego()
-		     << " | Planta: " << PokemonPlanta::getContadorPlanta()
-		     << " | Total: " << Pokemon::getContadorPokemon() << endl;
-		cout << endl;
-
-		indexBatalla++;
-
-	}
-
-	cout << endl;
-	cout << " ------------------------------- EL GANADOR ES " << Pokemons[0]->getNombre() << " -------------------------------" << endl;
-	cout << endl;
-	cout << " ------------------------------- RECOGE TU PREMIO -------------------------------" << endl;
-	cout << endl;
-
-	cout << "\x1b[34m";
-	cout << R"(
-  .     '     ,
+void mostrarGanador(Pokemon* ganador) {
+    cout << endl;
+    cout << " ------------------------------- EL GANADOR ES " << ganador->getNombre() << " -------------------------------" << endl;
+    cout << endl;
+    cout << " ------------------------------- RECOGE TU PREMIO -------------------------------" << endl;
+    cout << "\x1b[34m";
+    cout << R"(
+  .      '      ,
     _________
  _ /_|_____|_\ _
    '. \   / .'
      '.\ /.'
        '.'
 )" << endl;
-	cout << "\x1b[0m";
-
-	for (Pokemon* p : Pokemons) {
-		delete p;
-	}
-
-	Pokemons.clear();
-
-	// Liberar mapa y recursos asociados
-	delete mapa;
-	partida.mapa = nullptr;
-
-    // Liberar vectores estáticos y otros recursos globales utilizados por Partida
-    liberarRecursos();
-
+    cout << "\x1b[0m";
 }

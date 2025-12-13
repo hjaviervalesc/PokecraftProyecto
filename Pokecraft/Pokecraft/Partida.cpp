@@ -1,9 +1,9 @@
 #include "Partida.h"
-#include "Pokemon.h"
 #include "Objeto.h"
-
+#include "Pokemon.h"
+#include "Mapa.h"
 #include "TiposObjeto.h"
-
+#include "casilla.h"
 #include "PokemonFuego.h"
 #include "PokemonAgua.h"
 #include "PokemonPlanta.h"
@@ -177,9 +177,9 @@ Pokemon* Partida::crearPokemonAleatorio( ) {
         x = rand() % mapa->MatrizCasillas.size();
         y = rand() % mapa->MatrizCasillas.size();
 
-   } while (mapa->MatrizCasillas[x][y]->pokemon != nullptr);
+   } while (mapa->MatrizCasillas[x][y]->getPokemon() != nullptr);
    
-    mapa->MatrizCasillas[x][y]->pokemon = p;
+    mapa->MatrizCasillas[x][y]->setPokemon(p);
 
     p->setX(x);
     p->setY(y);
@@ -292,10 +292,10 @@ void Partida::reducirZonaAzul(int x, int y) {
                 if (nx >= 0 && nx < mapa->MatrizCasillas.size() && ny >= 0 && ny < mapa->MatrizCasillas.size()) {
                     Casilla* c = mapa->MatrizCasillas[nx][ny];
 
-                    if (c->pokemon) {
-                        c->pokemon->setVivo(false);
-                        cout << "La zona azul mata a " << c->pokemon->getNombre() << endl;
-                        c->pokemon = nullptr;
+                    if (c->getPokemon()) {
+                        c->getPokemon()->setVivo(false);
+                        cout << "La zona azul mata a " << c->getPokemon()->getNombre() << endl;
+                        c->setPokemon(nullptr);
                         asesinatos++;
                     }
                 }
@@ -305,13 +305,18 @@ void Partida::reducirZonaAzul(int x, int y) {
 }
 
 Objeto* Partida::ComprobarObjetoEnCasilla(int x, int y) {
-    return mapa->MatrizCasillas[x][y]->objeto;
+    return mapa->MatrizCasillas[x][y]->getObjeto();
 }
 
 Pokemon* Partida::ComprobarPokemonEnCasilla(int x, int y) {
-    return mapa->MatrizCasillas[x][y]->pokemon;
+    return mapa->MatrizCasillas[x][y]->getPokemon();
 }
-
+Partida::~Partida() {
+    if (mapa != nullptr) {
+        delete mapa;
+        mapa = nullptr;
+    }
+}
 void liberarRecursos()
 {
     nombresFuego.clear();

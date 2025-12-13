@@ -13,9 +13,8 @@ public:
 
 	virtual ~Objeto();
 	virtual void utilizar(Pokemon* pokemon) = 0;
+	inline bool getCogido()const { return cogido; }
 
-	int getX();
-	int getY();
 	TiposObjeto getTipoObjeto();
 
 };

@@ -1,38 +1,38 @@
 #pragma once
 
-#include "Pokemon.h"
-#include "Mapa.h"
+
 #include <iostream>
 #include <vector>
-
-#include <cstdlib>
-#include <ctime>
-
-#include <functional>
-#include <memory>  
-
+#include <list>
+class Pokemon;
+class Mapa;
+class Objeto;
 class Partida
 {
-
 public:
 
-	Mapa* mapa;
-	Partida();
-	std::vector<Pokemon*> crearPokemons(int cantidad);
-	std::vector<Pokemon*> batalla(std::vector<Pokemon*>& lista, Pokemon* actual, Pokemon* rival);
-	Pokemon* crearPokemonAleatorio();
-	std::list<Objeto*>* equipInicio();
+    Partida();
+    ~Partida();
+    // Métodos principales
+    std::vector<Pokemon*> crearPokemons(int cantidad);
+    std::vector<Pokemon*> batalla(std::vector<Pokemon*>& lista, Pokemon* actual, Pokemon* rival);
+    Pokemon* crearPokemonAleatorio();
+    std::list<Objeto*>* equipInicio();
 
-	Objeto* ComprobarObjetoEnCasilla(int x, int y);
-	Pokemon* ComprobarPokemonEnCasilla(int x, int y);
+    Objeto* ComprobarObjetoEnCasilla(int x, int y);
+    Pokemon* ComprobarPokemonEnCasilla(int x, int y);
 
-	void reducirZonaAzul(int x, int y);
-	void usarObjetos(Pokemon* pokemonDuelo);
+    void reducirZonaAzul(int x, int y);
+    void usarObjetos(Pokemon* pokemonDuelo);
+
+    // Getter y Setter para mapa
+    Mapa* getMapa() const { return mapa; }
+    void setMapa(Mapa* nuevoMapa) { mapa = nuevoMapa; }
 
 private:
 
-	int jugadores = 100;
+    Mapa* mapa;
+    
 };
 
 void liberarRecursos();
-
