@@ -1,6 +1,6 @@
 # Pokecraft 
 
-Pokecraft es una simulación en C++  donde pokemons en un mapa  participan en un clash royale por la victoria. Cada pokemon tiene tipo (Fuego, Agua, Planta, Eléctrico), vida, armadura, daño y una lista de objetos. La partida  genera pokemons y objetos aleatorios, coloca entidades en un mapa y simula combates entre pokemons.No hay UI incluida en los archivos analizados, la interacción observable es por consola.
+Pokecraft es una simulación en C++, inspirada en Pokemon y Minecraft,  donde pokemons en un mapa recolectaran objetos de Minecraft y participaran en un battle royale por la victoria. Cada pokemon tiene tipo (Fuego, Agua, Planta, Eléctrico), vida, armadura, daño y una lista de objetos. La partida  genera pokemons y objetos aleatorios, coloca entidades en un mapa y simula combates entre pokemons.No hay UI incluida en los archivos analizados, la interacción observable es por consola.
 
 ![Portada del juego](portada.png)
 

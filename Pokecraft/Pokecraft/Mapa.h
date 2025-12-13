@@ -31,13 +31,13 @@ public:
      * @brief Inicializa la matriz de casillas del mapa.
      * @param tamanno Tamaño de la matriz.
      */
-    void CrearMapa(int tamanno);
+    void crearMapa(int tamanno);
     Objeto* generarObjetoAleatorio();
     /**
      * @brief Coloca objetos aleatorios en las casillas vacías del mapa.
      * @param nObjetos Número de objetos a generar.
      */
-    void GenerarObjetos(int nObjetos);
+    void generarObjetos(int nObjetos);
 
     /**
      * @brief Devuelve un pool de objetos que pueden aparecer en el mapa.

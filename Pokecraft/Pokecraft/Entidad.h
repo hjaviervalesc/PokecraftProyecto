@@ -2,7 +2,6 @@
 #include <string>
 /**
  * @brief Clase base para todas las entidades del juego, como Pokemons u objetos.
- * Contiene posición, estado de vida y nombre.
  */
 class Entidad
 {
@@ -11,13 +10,7 @@ protected:
 	bool vivo;
 	std::string nombre;
 public:
-	/**
-	* 
-	* @param x Posición horizontal inicial.
-	* @param y Posición vertical inicial.
-	* @param vivo Estado inicial de vida.
-	* @param nombre Nombre de la entidad.
-	*/
+
 	Entidad(int x, int y, bool vivo, std::string nombre);
 	virtual ~Entidad();
 	inline const int getX()

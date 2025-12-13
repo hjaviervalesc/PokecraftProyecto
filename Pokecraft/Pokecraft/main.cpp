@@ -63,7 +63,7 @@ int main()
     cin >> numeroNPCs;
 
     
-    if (numeroNPCs > 100) {
+    if ((numeroNPCs + numJugadores) > 100) {
         cout << "Error: Excedido numero de jugadores maximo" << endl;
         delete partida;
         liberarRecursos();
@@ -109,8 +109,8 @@ int main()
             corregirLimitesMapa(actual, (int)mapa->MatrizCasillas.size());
 
             
-            Pokemon* rival = partida->ComprobarPokemonEnCasilla(actual->getX(), actual->getY());
-            Objeto* loot = partida->ComprobarObjetoEnCasilla(actual->getX(), actual->getY());
+            Pokemon* rival = partida->comprobarPokemonEnCasilla(actual->getX(), actual->getY());
+            Objeto* loot = partida->comprobarObjetoEnCasilla(actual->getX(), actual->getY());
 
             if (rival && rival->getNombre() != actual->getNombre()) {
                 
@@ -178,10 +178,13 @@ void mostrarBienvenida() {
     cout << "***************************************" << endl;
     cout << "                                     " << endl;
     cout << "      \x1b[31mBIENVENIDO A\x1b[33m       " << endl;
-    cout << "      \x1b[34mPOKEMON RUMBLE ROYALE\x1b[33m  " << endl;
+    cout << "      \x1b[34mPOKECRAFT BATTLE ROYALE\x1b[33m  " << endl;
     cout << "                                     " << endl;
     cout << "***************************************\n" << endl;
+    cout << "Las reglas son claras: \nEl usuario:\n -elige un tamanno del mapa\n -elige el numero de jugadores y NPCs (Suma ambos MAX 100)\n -comenzara la batalla y el usuario movera su pokemon en los diferentes turnos\n -el ganador recibira un premio\n" << endl;
     cout << "CREACION DE PARTIDA" << endl << endl;
+
+
     cout << "\x1b[0m";
 }
 

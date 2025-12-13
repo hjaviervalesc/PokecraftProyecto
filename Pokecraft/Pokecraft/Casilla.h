@@ -13,11 +13,9 @@ public:
     Casilla() : pokemon(nullptr), objeto(nullptr) {}
     virtual ~Casilla();
 
-    // Getters
     Pokemon* getPokemon() const { return pokemon; }
     Objeto* getObjeto() const { return objeto; }
 
-    // Setters
     void setPokemon(Pokemon* p) { pokemon = p; }
     void setObjeto(Objeto* o) { objeto = o; }
 };

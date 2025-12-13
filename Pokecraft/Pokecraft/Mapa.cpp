@@ -18,11 +18,11 @@ using namespace std;
 
 Mapa::Mapa(int tamanno, int nObjetos)
 {
-    CrearMapa(tamanno);
-    GenerarObjetos(nObjetos);
+    crearMapa(tamanno);
+    generarObjetos(nObjetos);
 }
 
-void Mapa::CrearMapa(int tamanno)
+void Mapa::crearMapa(int tamanno)
 {
     MatrizCasillas.resize(tamanno, std::vector<Casilla*>(tamanno, nullptr));
 
@@ -34,10 +34,8 @@ void Mapa::CrearMapa(int tamanno)
 }
 Objeto* Mapa::generarObjetoAleatorio()
 {
-    // 1. Decidimos qué objeto crear ANTES de hacer el new
-    int opcion = rand() % 19; // Hay 19 casos en tu lista original
-
-    // 2. Hacemos new SOLO del objeto ganador
+    int opcion = rand() % 19;
+   
     switch (opcion)
     {
     case 0: return new ArmaduraCuero(Casco, false, 1, true, rand() % 200, rand() % 200, Armadura, "CascoCuero");
@@ -69,7 +67,7 @@ Objeto* Mapa::generarObjetoAleatorio()
     default: return nullptr; // Por seguridad
     }
 }
-void Mapa::GenerarObjetos(int nObjetos)
+void Mapa::generarObjetos(int nObjetos)
 {
     for (int i = 0; i < nObjetos; i++) {
         int x, y;
@@ -100,35 +98,3 @@ Mapa::~Mapa() {
     }
     MatrizCasillas.clear();
 }
-
-//vector<Objeto*> Mapa::getPoolObjetos()
-//{
-//    // Se crea un pool de objetos, la propiedad de los punteros es de quien los inserta en las casillas
-//    return {
-//        new ArmaduraCuero(Casco, false, 1, true, rand() % 200, rand() % 200, Armadura, "CascoCuero"),
-//        new ArmaduraHierro(Casco, false, 1, true, rand() % 200, rand() % 200, Armadura, "CascoHierro"),
-//        new ArmaduraDiamante(Casco, false, 1, true, rand() % 200, rand() % 200, Armadura, "CascoDiamante"),
-//
-//        new ArmaduraCuero(Mallas, false, 1, true, rand() % 200, rand() % 200, Armadura, "MallasCuero"),
-//        new ArmaduraHierro(Mallas, false, 1, true, rand() % 200, rand() % 200, Armadura, "MallasHierro"),
-//        new ArmaduraDiamante(Mallas, false, 1, true, rand() % 200, rand() % 200, Armadura, "MallasDiamante"),
-//
-//        new ArmaduraCuero(Pechera, false, 1, true, rand() % 200, rand() % 200, Armadura, "PecheraCuero"),
-//        new ArmaduraHierro(Pechera, false, 1, true, rand() % 200, rand() % 200, Armadura, "PecheraHierro"),
-//        new ArmaduraDiamante(Pechera, false, 1, true, rand() % 200, rand() % 200, Armadura, "PecheraDiamante"),
-//
-//        new ArmaMadera(Martillo, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloMadera"),
-//        new ArmaHierro(Martillo, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloHierro"),
-//        new ArmaDiamante(Martillo, false, 1, true, rand() % 200, rand() % 200, Armas, "MartilloDiamante"),
-//
-//        new ArmaMadera(Hacha, false, 1, true, rand() % 200, rand() % 200, Armas, "HachaMadera"),
-//        new ArmaHierro(Hacha, false, 1, true, rand() % 200, rand() % 200, Armas, "HachaHierro"),
-//        new ArmaDiamante(Hacha, false, 1, true, rand() % 200, rand() % 200, Armas, "HachaDiamante"),
-//
-//        new ArmaMadera(Espada, false, 1, true, rand() % 200, rand() % 200, Armas, "EspadaMadera"),
-//        new ArmaHierro(Espada, false, 1, true, rand() % 200, rand() % 200, Armas, "EspadaHierro"),
-//        new ArmaDiamante(Espada, false, 1, true, rand() % 200, rand() % 200, Armas, "EspadaDiamante"),
-//
-//        new Botiquin(150, false, 1, true, rand() % 200, rand() % 200, BotiquinObjeto, "Botiquin")
-//    };
-//}

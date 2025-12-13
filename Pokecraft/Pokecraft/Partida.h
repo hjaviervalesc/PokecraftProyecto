@@ -19,8 +19,8 @@ public:
     Pokemon* crearPokemonAleatorio();
     std::list<Objeto*>* equipInicio();
 
-    Objeto* ComprobarObjetoEnCasilla(int x, int y);
-    Pokemon* ComprobarPokemonEnCasilla(int x, int y);
+    Objeto* comprobarObjetoEnCasilla(int x, int y);
+    Pokemon* comprobarPokemonEnCasilla(int x, int y);
 
     void reducirZonaAzul(int x, int y);
     void usarObjetos(Pokemon* pokemonDuelo);

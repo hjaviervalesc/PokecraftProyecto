@@ -304,11 +304,11 @@ void Partida::reducirZonaAzul(int x, int y) {
     }
 }
 
-Objeto* Partida::ComprobarObjetoEnCasilla(int x, int y) {
+Objeto* Partida::comprobarObjetoEnCasilla(int x, int y) {
     return mapa->MatrizCasillas[x][y]->getObjeto();
 }
 
-Pokemon* Partida::ComprobarPokemonEnCasilla(int x, int y) {
+Pokemon* Partida::comprobarPokemonEnCasilla(int x, int y) {
     return mapa->MatrizCasillas[x][y]->getPokemon();
 }
 Partida::~Partida() {
